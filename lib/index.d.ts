@@ -27,8 +27,10 @@ declare module 'node-firebird' {
     export type Isolation = number[];
 
     export interface FbEventManager {
-        registerEvent(callback: SimpleCallback): void;
-        on(callback: EventCallback): void;
+        registerEvent(events: string[], callback: SimpleCallback): void;
+        unregisterEvent(events: string[], callback: SimpleCallback): void;
+        close(callback: EventCallback): void;
+        on(event: string, callback: EventCallback): void;
     }
 
     export interface Database {
