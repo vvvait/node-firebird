@@ -8,6 +8,8 @@ declare module 'node-firebird' {
     type QueryCallback = (err: any, result: any[]) => void;
     type SimpleCallback = (err: any) => void;
     type SequentialCallback = (row: any, index: number) => void;
+    type EventManagerCallback = (err: any, em: FbEventManager) => void;
+    type EventCallback = (name: string, count: number) => void;
 
     export const AUTH_PLUGIN_LEGACY: string;
     export const AUTH_PLUGIN_SRP: string;
@@ -24,6 +26,11 @@ declare module 'node-firebird' {
 
     export type Isolation = number[];
 
+    export interface FbEventManager {
+        registerEvent(callback: SimpleCallback): void;
+        on(callback: EventCallback): void;
+    }
+
     export interface Database {
         detach(callback?: SimpleCallback): Database;
         transaction(isolation: Isolation, callback: TransactionCallback): Database;
@@ -32,6 +39,7 @@ declare module 'node-firebird' {
         sequentially(query: string, params: any[], rowCallback: SequentialCallback, callback: SimpleCallback, asArray?: boolean): Database;
         drop(callback: SimpleCallback): void;
         escape(value: any): string;
+        attachEvent(callback: EventManagerCallback);
     }
 
     export interface Transaction {
