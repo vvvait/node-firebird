@@ -9,7 +9,7 @@ declare module 'node-firebird' {
     type SimpleCallback = (err: any) => void;
     type SequentialCallback = (row: any, index: number) => void;
     type EventManagerCallback = (err: any, em: FbEventManager) => void;
-    type EventCallback = (name: string, count: number) => void;
+    export type EventCallback = (name: string, count: number) => void;
 
     export const AUTH_PLUGIN_LEGACY: string;
     export const AUTH_PLUGIN_SRP: string;
@@ -20,6 +20,7 @@ declare module 'node-firebird' {
 
     export const ISOLATION_READ_UNCOMMITTED: number[];
     export const ISOLATION_READ_COMMITED: number[];
+    export const ISOLATION_READ_COMMITED_NOWAIT: number[];
     export const ISOLATION_REPEATABLE_READ: number[];
     export const ISOLATION_SERIALIZABLE: number[];
     export const ISOLATION_READ_COMMITED_READ_ONLY: number[];
