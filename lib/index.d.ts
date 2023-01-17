@@ -19,11 +19,11 @@ declare module 'node-firebird' {
     export const WIRE_CRYPT_DISABLE: number;
 
     export const ISOLATION_READ_UNCOMMITTED: number[];
-    export const ISOLATION_READ_COMMITED: number[];
-    export const ISOLATION_READ_COMMITED_NOWAIT: number[];
+    export const ISOLATION_READ_COMMITTED: number[];
+    export const ISOLATION_READ_COMMITTED_NOWAIT: number[];
     export const ISOLATION_REPEATABLE_READ: number[];
     export const ISOLATION_SERIALIZABLE: number[];
-    export const ISOLATION_READ_COMMITED_READ_ONLY: number[];
+    export const ISOLATION_READ_COMMITTED_READ_ONLY: number[];
 
     export type Isolation = number[];
 
@@ -55,6 +55,36 @@ declare module 'node-firebird' {
         rollbackRetaining(callback?: SimpleCallback): void;
     }
 
+    export type SupportedCharacterSet = |
+        'NONE' |
+        'CP943C' |
+        'DOS737' |
+        'DOS775' |
+        'DOS858' |
+        'DOS862' |
+        'DOS864' |
+        'DOS866' |
+        'DOS869' |
+        'GB18030' |
+        'GBK' |
+        'ISO8859_2' |
+        'ISO8859_3' |
+        'ISO8859_4' |
+        'ISO8859_5' |
+        'ISO8859_6' |
+        'ISO8859_7' |
+        'ISO8859_8' |
+        'ISO8859_9' |
+        'ISO8859_13' |
+        'KOI8R' |
+        'KOI8U' |
+        'TIS620' |
+        'UTF8' |
+        'WIN1255' |
+        'WIN1256' |
+        'WIN1257' |
+        'WIN1258' |
+        'WIN_1258';
     export interface Options {
         host?: string;
         port?: number;
@@ -64,6 +94,9 @@ declare module 'node-firebird' {
         lowercase_keys?: boolean;
         role?: string;
         pageSize?: number;
+        retryConnectionInterval?: number;
+        encoding?: SupportedCharacterSet;
+        blobAsText?: boolean; // only affects for blob subtype 1
     }
 
     export interface SvcMgrOptions extends Options {
@@ -225,10 +258,10 @@ declare module 'node-firebird' {
         backup(options: BackupOptions, callback: ReadableCallback): void;
         nbackup(options: BackupOptions, callback: ReadableCallback): void;
         restore(options: NRestoreOptions, callback: ReadableCallback): void;
-        nrestore(options, callback): void;
+        nrestore(options: any, callback: Function): void;
         setDialect(db: string, dialect: 1 | 3, callback: ReadableCallback): void;
-        setSweepinterval(db: string, interval: number, callback): void; // gfix -h INTERVAL
-        setCachebuffer(db: string, nbpages, callback: ReadableCallback): void; // gfix -b NBPAGES
+        setSweepinterval(db: string, interval: number, callback: Function): void; // gfix -h INTERVAL
+        setCachebuffer(db: string, nbpages: any, callback: ReadableCallback): void; // gfix -b NBPAGES
         BringOnline(db: string, callback: ReadableCallback): void; // gfix -o
         Shutdown(db: string, kind: ShutdownKind, delay: number, mode: ShutdownMode, callback: ReadableCallback): void; // server version >= 2.0
         Shutdown(db: string, kind: ShutdownKind, delay: number, callback: ReadableCallback): void; // server version < 2.0
