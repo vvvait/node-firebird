@@ -18,12 +18,12 @@ declare module 'node-firebird' {
     export const WIRE_CRYPT_ENABLE: number;
     export const WIRE_CRYPT_DISABLE: number;
 
-    export const ISOLATION_READ_UNCOMMITED: number[];
-    export const ISOLATION_READ_COMMITED: number[];
-    export const ISOLATION_READ_COMMITED_NOWAIT: number[];
+    export const ISOLATION_READ_UNCOMMITTED: number[];
+    export const ISOLATION_READ_COMMITTED: number[];
+    export const ISOLATION_READ_COMMITTED_NOWAIT: number[];
     export const ISOLATION_REPEATABLE_READ: number[];
     export const ISOLATION_SERIALIZABLE: number[];
-    export const ISOLATION_READ_COMMITED_READ_ONLY: number[];
+    export const ISOLATION_READ_COMMITTED_READ_ONLY: number[];
 
     export type Isolation = number[];
 
