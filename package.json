@@ -8,10 +8,10 @@
         "rdbms",
         "sql"
     ],
-    "homepage": "https://github.com/hgourvest/node-firebird",
+    "homepage": "https://github.com/vvvait/node-firebird",
     "repository": {
         "type": "git",
-        "url": "https://github.com/hgourvest/node-firebird"
+        "url": "https://github.com/vvvait/node-firebird"
     },
     "author": {
         "name": "Henri Gourvest",
